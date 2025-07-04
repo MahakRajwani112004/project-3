@@ -5,6 +5,7 @@ import { SearchSection } from './components/SearchSection';
 import { ResultsSection } from './components/ResultsSection';
 import { AgentStatus } from './components/AgentStatus';
 import { UploadedResumesPage } from './components/UploadedResumesPage';
+import { JobDescriptionUpload } from './components/JobDescriptionUpload';
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
@@ -24,7 +25,7 @@ interface ResumeFile {
 }
 
 function App() {
-  const [currentPage, setCurrentPage] = useState<'home' | 'resumes'>('home');
+  const [currentPage, setCurrentPage] = useState<'home' | 'resumes' | 'job-description'>('home');
   const [resumeList, setResumeList] = useState<string[]>([]);
   const [uploadedResumes, setUploadedResumes] = useState<ResumeFile[]>([]);
   const [searchResult, setSearchResult] = useState<SearchResult | null>(null);
@@ -139,7 +140,7 @@ function App() {
     }
   };
 
-  const handlePageChange = (page: 'home' | 'resumes') => {
+  const handlePageChange = (page: 'home' | 'resumes' | 'job-description') => {
     setCurrentPage(page);
   };
 
@@ -152,6 +153,17 @@ function App() {
             uploadedResumes={uploadedResumes}
             onRefresh={fetchAllResumes}
           />
+        </main>
+      </div>
+    );
+  }
+
+  if (currentPage === 'job-description') {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50">
+        <Header currentPage={currentPage} onPageChange={handlePageChange} />
+        <main className="container mx-auto px-4 py-8">
+          <JobDescriptionUpload />
         </main>
       </div>
     );

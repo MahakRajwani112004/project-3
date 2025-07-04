@@ -1,10 +1,10 @@
 import React from 'react';
 import { Navbar, NavbarBrand, NavbarContent, NavbarItem, Chip, Button } from '@nextui-org/react';
-import { Bot, FileText, Search, FolderOpen, Home } from 'lucide-react';
+import { Bot, FileText, Search, FolderOpen, Home, Briefcase } from 'lucide-react';
 
 interface HeaderProps {
-  currentPage?: 'home' | 'resumes';
-  onPageChange?: (page: 'home' | 'resumes') => void;
+  currentPage?: 'home' | 'resumes' | 'job-description';
+  onPageChange?: (page: 'home' | 'resumes' | 'job-description') => void;
 }
 
 export const Header: React.FC<HeaderProps> = ({ 
@@ -54,6 +54,17 @@ export const Header: React.FC<HeaderProps> = ({
                 size="sm"
               >
                 Uploaded Resumes
+              </Button>
+            </NavbarItem>
+            <NavbarItem>
+              <Button
+                variant={currentPage === 'job-description' ? 'solid' : 'light'}
+                color="primary"
+                startContent={<Briefcase className="w-4 h-4" />}
+                onClick={() => onPageChange('job-description')}
+                size="sm"
+              >
+                Job Description
               </Button>
             </NavbarItem>
           </>
